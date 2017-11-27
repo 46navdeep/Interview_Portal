@@ -3,18 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "proxy": {
-    "/home": {
+    "/admin/home": {
+      "target": "http://localhost:4000"
+    },
+    "/login/trial": {
       "target": "http://localhost:4000"
     }
   },
   "dependencies": {
+    "install": "^0.10.2",
     "jquery": "^3.2.1",
     "material-ui": "^0.19.4",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "react-router": "^4.2.0",
+    "react-router": "^3.2.0",
     "react-scripts": "1.0.17",
-    "react-tap-event-plugin": "^3.0.2"
+    "react-tap-event-plugin": "^3.0.2",
+    "reactjs-localstorage": "0.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

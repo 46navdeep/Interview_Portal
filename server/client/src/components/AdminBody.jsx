@@ -7,20 +7,18 @@ class AdminBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mail: "",
-      password: "",
       student: ""
     };
   }
 
   handleClick = () => {
     var parameter = {
-      email: this.state.mail,
-      pass: this.state.password,
+      mail: localStorage.getItem("email"),
+      pass: localStorage.getItem("passwd"),
       stud: this.state.student
     };
     $.ajax({
-      url: "/home",
+      url: "/admin/home",
       data: parameter,
       type: "POST"
     });
@@ -51,25 +49,13 @@ class AdminBody extends Component {
   };
 
   render() {
-    console.log(this.state.mail);
-    console.log(this.state.student);
-
+    //console.log(localStorage.getItem("email"));
+    //console.log(localStorage.getItem("passwd"));
     return (
       <div style={{ marginLeft: "30%", marginTop: "5%" }}>
         <TextField
-          hintText="Enter your e-mail address"
-          style={{ marginLeft: "10px" }}
-          onChange={event => this.setState({ mail: event.target.value })}
-        />
-        <TextField
-          hintText="Enter your password"
-          type="password"
-          style={{ marginLeft: "10px" }}
-          onChange={event => this.setState({ password: event.target.value })}
-        />
-        <TextField
           hintText="Enter Interviewee e-mail address"
-          style={{ marginLeft: "10px" }}
+          style={{ marginLeft: "16%" }}
           onChange={event => this.setState({ student: event.target.value })}
         />
         <RaisedButton
