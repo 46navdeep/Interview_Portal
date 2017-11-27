@@ -1,6 +1,14 @@
 var express = require("express");
+var mongoose = require("mongoose");
+var cookieSession = require("cookie-session");
+var passport = require("passport");
+var keys = require("./config/keys");
+require("./models/User");
+require("./services/passport");
 var nodemailer = require("nodemailer");
 var bodyParser = require("body-parser");
+mongoose.connect(keys.mongoURI);
+
 var app = express();
 app.use(bodyParser.urlencoded());
 
@@ -9,7 +17,7 @@ app.use(bodyParser.urlencoded());
   host: "smtp.gmail.com",
   auth: {
     user: "navdeepddn.97@gmail.com",
-    pass: "panchvatiddn77"
+    pass: ""
   }
 });
 
@@ -19,36 +27,17 @@ app.post("/home", function(req, res, next) {
   console.log(req.body.stud);
 });*/
 
-app.post("/home", function(req, res, next) {
-  console.log(req.body.email);
-  console.log(req.body.pass);
-  console.log(req.body.stud);
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-  var smtpTransport = nodemailer.createTransport({
-    service: "gmail",
-    host: "smtp.gmail.com",
-    auth: {
-      user: req.body.email,
-      pass: req.body.pass
-    }
-  });
-
-  var mailOptions = {
-    to: req.body.stud,
-    subject: "Maine bheja",
-    text: "hey hey"
-  };
-  console.log(mailOptions);
-  smtpTransport.sendMail(mailOptions, function(error, response) {
-    if (error) {
-      console.log(error);
-      res.end("error");
-    } else {
-      console.log("Message sent: " + response.message);
-      res.end("sent");
-    }
-  });
-});
+require("./routes/authRoutes")(app);
+require("./routes/mailRoutes")(app);
 
 app.listen(4000, function() {
   console.log("Express Started on Port 4000");
