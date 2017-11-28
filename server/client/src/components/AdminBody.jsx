@@ -1,71 +1,72 @@
 import React, { Component } from "react";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
+// import { reactLocalStorage } from 'reactjs-localstorage';
 import $ from "jquery";
 
 class AdminBody extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      student: ""
+      user: ""
     };
   }
 
-  handleClick = () => {
-    var parameter = {
-      mail: localStorage.getItem("email"),
-      pass: localStorage.getItem("passwd"),
-      stud: this.state.student
+  handleClick = interviewee => {
+    // const payload = {
+    // mail: this.state.mail
+    // };
+    localStorage.setItem("interviewee", interviewee);
+    // var data = new FormData();
+    // data.append('json', JSON.stringify(payload));
+    var parameters = {
+      email: localStorage.getItem("email"),
+      pass: localStorage.getItem("password"),
+      student: this.state.user
     };
+
     $.ajax({
       url: "/admin/home",
-      data: parameter,
+      data: parameters,
       type: "POST"
     });
   };
 
-  checkString = () => {
+  checkText = () => {
     const { mail } = this.state;
     var c1 = 0;
     var c2 = 0;
-    var i;
-    for (i = 0; i < mail.length; i++) {
-      if (mail[i] === "@") ++c1;
-      if (mail[i] === ".") ++c2;
+    // console.log(mail[0]);
+    for (var i = 0; i < mail.length; i++) {
+      if (mail[i] === "@") {
+        c1 += 1;
+      }
+      if (mail[i] === ".") {
+        c2 += 1;
+      }
     }
-
-    const { student } = this.state;
-    var c3 = 0;
-    var c4 = 0;
-    var j;
-    for (j = 0; j < student.length; j++) {
-      if (student[j] === "@") ++c3;
-      if (student[j] === ".") ++c4;
-    }
-    if (c1 === 1 && c2 >= 1 && c3 === 1 && c4 >= 1);
-    else {
-      window.alert("Please enter a vilid e-mail address");
+    if (c1 === 1 && c2 >= 1) {
+    } else {
+      window.alert("Please enter a valid E-mail address.");
     }
   };
 
   render() {
-    //console.log(localStorage.getItem("email"));
-    //console.log(localStorage.getItem("passwd"));
     return (
-      <div style={{ marginLeft: "30%", marginTop: "5%" }}>
+      <div style={{ marginLeft: "38%", marginTop: "5%" }}>
         <TextField
-          hintText="Enter Interviewee e-mail address"
-          style={{ marginLeft: "16%" }}
-          onChange={event => this.setState({ student: event.target.value })}
+          hintText="Enter recepient's E-mail address"
+          onChange={event => this.setState({ user: event.target.value })}
+          style={{ marginLeft: "10px" }}
         />
         <RaisedButton
           label="Send"
-          primary={true}
-          style={{ marginLeft: "10px" }}
-          onClick={this.handleClick}
+          secondary={true}
+          onClick={() => this.handleClick(this.state.user)}
         />
       </div>
     );
   }
 }
+
 export default AdminBody;

@@ -7,21 +7,30 @@ class Score extends Component {
   render() {
     return (
       <div>
-        <Chip backgroundColor={blue300} style={{ marginLeft: "45%" }}>
+        <Chip backgroundColor={blue300} style={{ marginLeft: "46%" }}>
           SCORES
         </Chip>
         <br />
         <Paper
           style={{
-            height: "400px",
             width: "900px",
-            marginLeft: "23%",
+            height: "400px",
+            marginLeft: "17.5%",
             backgroundColor: "#99ecff"
           }}
           zDepth={3}
-        />
+        >
+          <br />
+          <div style={{ marginLeft: "25%" }}>
+            <span>{localStorage.getItem("interviewee")}</span>
+            <span style={{ marginLeft: "20%" }}>
+              Score : {localStorage.getItem("score")}
+            </span>
+          </div>
+        </Paper>
       </div>
     );
   }
 }
+
 export default Score;

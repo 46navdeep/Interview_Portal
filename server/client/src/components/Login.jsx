@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
+// import { reactLocalStorage } from 'reactjs-localstorage';
 // import FlatButton from 'material-ui/FlatButton';
 import { Link } from "react-router";
 // import Divider from 'material-ui/Divider';
 import Dialog from "material-ui/Dialog";
-//import $ from "jquery";
+// import $ from 'jquery';
 
 class Login extends Component {
   constructor(props) {
@@ -13,23 +14,9 @@ class Login extends Component {
     this.state = {
       open: false,
       mail: "",
-      password: ""
+      pass: ""
     };
   }
-
-  makeCall = (m, p) => {
-    localStorage.setItem("email", m);
-    localStorage.setItem("passwd", p);
-    /*var parameter = {
-      mail: this.state.mail,
-      pass: this.state.password
-    };
-    $.ajax({
-      url: "/login/trial",
-      data: parameter,
-      type: "POST"
-    });*/
-  };
 
   handleClick = () => {
     this.setState({ open: true });
@@ -39,17 +26,24 @@ class Login extends Component {
     this.setState({ open: false });
   };
 
+  makeCall = (mail, passw) => {
+    localStorage.setItem("email", mail);
+    localStorage.setItem("password", passw);
+  };
+
   render() {
     const actions = [
-      <span style={{ width: "100px", height: "80px", backgroundColor: "grey" }}>
+      <span>
         <Link
           to={"/admin"}
-          onClick={() => this.makeCall(this.state.mail, this.state.password)}
+          onClick={() => this.makeCall(this.state.mail, this.state.pass)}
         >
           Login
         </Link>
       </span>
     ];
+
+    // reactLocalStorage.set('wow', 'Tony stark');
 
     return (
       <div style={{ marginLeft: "44%", marginTop: "20%" }}>
@@ -76,7 +70,7 @@ class Login extends Component {
             hintText="Password"
             type="password"
             style={{ marginLeft: "33%" }}
-            onChange={event => this.setState({ password: event.target.value })}
+            onChange={event => this.setState({ pass: event.target.value })}
           />
         </Dialog>
       </div>

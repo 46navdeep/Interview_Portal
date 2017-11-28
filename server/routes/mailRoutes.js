@@ -1,46 +1,35 @@
 var nodemailer = require("nodemailer");
 var bodyParser = require("body-parser");
+
 module.exports = app => {
-  /* app.post("/login/trial", function(req, res) {
-    app.use(bodyParser.urlencoded());
-    global mail = req.body.email;
-    global passwd = req.body.password;
-    /*app.set("mail", req.body.email);
-    app.set("pass", req.body.password);
-    consoole.log("-----------------------------");
-    console.log(app.get("mail"));
-    console.log(app.get("pass"));
-  });*/
-
-  app.get("/questio", function(req, res) {
-    res.redirect("http://localhost:3000/questions");
-  });
-
+  app.use(bodyParser.urlencoded());
   app.post("/admin/home", function(req, res, next) {
-    app.use(bodyParser.urlencoded());
-
-    console.log(req.body.stud);
+    // console.log(req.body.email);
+    // console.log(req.body.pass);
+    // console.log(req.body.student);
+    // app.set('username', req.body.student);
+    // console.log(app.get("mail"));
     var smtpTransport = nodemailer.createTransport({
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: req.body.mail,
+        user: req.body.email,
         pass: req.body.pass
       }
     });
 
     var mailOptions = {
-      to: req.body.stud,
-      subject: "Interview Link",
+      to: req.body.student,
+      subject: "Interview link",
       text: "http://localhost:4000/auth/google"
     };
-    console.log(mailOptions);
+    // console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response) {
       if (error) {
-        console.log(error);
+        // console.log(error);
         res.end("error");
       } else {
-        console.log("Message sent: " + mailOptions.text);
+        // console.log("Message sent: " + mailOptions.text);
         res.end("sent");
       }
     });

@@ -20,7 +20,7 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: "/questio",
+      callbackURL: "/auth/google/callback",
       proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
@@ -29,7 +29,7 @@ passport.use(
           //user already exists
           done(null, existingUser);
         } else {
-          new User({ googleID: profile.id })
+          new User({ googleID: profile.id, googleName: profile.displayName })
             .save()
             .then(user => done(null, user));
         }

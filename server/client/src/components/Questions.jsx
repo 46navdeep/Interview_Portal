@@ -11,25 +11,27 @@ class Questions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      count: 1
       // op1: '',
       // op2: '',
       // op3: '',
       // op4: '',
-      //count: 0
+      // count: 0
     };
   }
 
   test = (value, id, answer) => {
     // this.setState({option: value});
-    console.log(answer[id - 1]);
-    console.log(value);
+    // console.log(answer[id - 1]);
+    // console.log(value);
     if (answer[id - 1] === value) {
       localStorage.setItem(
         "count",
         parseInt(localStorage.getItem("count")) + 1
       );
-      console.log(localStorage.getItem("count"));
+      // console.log(localStorage.getItem("count"));
+      localStorage.setItem("score", localStorage.getItem("count"));
     } else {
       return 0;
     }
@@ -93,7 +95,7 @@ class Questions extends Component {
     for (var k = 0; k < 20; k++) {
       answer[k] = answers.answers[k].ans;
     }
-    console.log(answer);
+    // console.log(answer);
     // var cou = 0;
 
     return (
@@ -178,11 +180,11 @@ class Questions extends Component {
           }
         })}
         <Dialog
-          //actions={actions}
+          // actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          modal={true}
+          // modal={true}
         >
           <span style={{ marginLeft: "40%" }}>
             Your Score is : {localStorage.getItem("count")}
@@ -192,7 +194,9 @@ class Questions extends Component {
           label="submit"
           style={{ marginLeft: "47%" }}
           primary={true}
-          onClick={() => this.setState({ open: true })}
+          onClick={() => {
+            this.setState({ open: true });
+          }}
         />
       </div>
     );

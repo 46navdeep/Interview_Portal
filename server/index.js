@@ -40,5 +40,5 @@ require("./routes/authRoutes")(app);
 require("./routes/mailRoutes")(app);
 
 app.listen(4000, function() {
-  console.log("Express Started on Port 4000");
+  // console.log("Express Started on Port 4000");
 });

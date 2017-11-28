@@ -6,10 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "proxy": {
-    "/questions": {
-      "target": "http://localhost:3000"
-    },
   "author": "",
   "license": "ISC",
   "dependencies": {
