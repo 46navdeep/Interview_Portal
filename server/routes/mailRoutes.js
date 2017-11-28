@@ -12,6 +12,10 @@ module.exports = app => {
     console.log(app.get("pass"));
   });*/
 
+  app.get("/questio", function(req, res) {
+    res.redirect("http://localhost:3000/questions");
+  });
+
   app.post("/admin/home", function(req, res, next) {
     app.use(bodyParser.urlencoded());
 
@@ -27,8 +31,8 @@ module.exports = app => {
 
     var mailOptions = {
       to: req.body.stud,
-      subject: "Test Mail",
-      text: "Hey ! This is a test mail."
+      subject: "Interview Link",
+      text: "http://localhost:4000/auth/google"
     };
     console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response) {

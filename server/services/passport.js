@@ -20,7 +20,7 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "/questio",
       proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
